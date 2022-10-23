@@ -65,9 +65,14 @@ def recognize():
         words_result = json_dict['words_result']
         return (words_result['number'])
 
+#此处为瞎编的停车位，需路径规划
 position = 'A123'
+
+
+
 if __name__ == '__main__':
-    for i in (1,2):
+    #每60秒执行一次程序
+    while(1):
         img_get()
         img = open_img()
         car_number = recognize()
@@ -75,4 +80,4 @@ if __name__ == '__main__':
         cur.executemany("INSERT INTO Car(CarNumber,Position,InTime) VALUES(%s,%s,%s)",[(car_number,position,now.strftime("%Y-%m-%d %H:%M:%S"))])
         con.commit()
         print(car_number)
-        time.sleep(10)
+        time.sleep(60)
