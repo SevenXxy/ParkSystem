@@ -65,9 +65,12 @@ def recognize():
         words_result = json_dict['words_result']
         return (words_result['number'])
 
+#给车辆分配的车位，此处暂时瞎编
 position = 'A123'
+
 if __name__ == '__main__':
-    for i in (1,2):
+    #一直循环执行，每60秒执行一次
+    while(1):
         img_get()
         img = open_img()
         car_number = recognize()
@@ -75,4 +78,4 @@ if __name__ == '__main__':
         cur.executemany("INSERT INTO Car(CarNumber,Position,InTime) VALUES(%s,%s,%s)",[(car_number,position,now.strftime("%Y-%m-%d %H:%M:%S"))])
         con.commit()
         print(car_number)
-        time.sleep(10)
+        time.sleep(60)
